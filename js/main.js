@@ -1,0 +1,1 @@
+document.addEventListener('click',()=>console.log('site fã ordem paranormal'));

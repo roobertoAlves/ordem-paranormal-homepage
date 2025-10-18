@@ -1,0 +1,64 @@
+/* beneficios.css - Estilos para a seção de Benefícios & Preços */
+#beneficios {
+  background: #18141c;
+  color: #f8f6f2;
+}
+.ordem-title {
+  font-family: 'RomanNewTimes', serif;
+  color: #a6122f;
+  letter-spacing: 2px;
+}
+.card {
+  background: #221b29;
+  border: 1px solid #a6122f;
+  box-shadow: 0 4px 16px rgba(166,18,47,0.15);
+  border-radius: 12px;
+}
+.card-title {
+  font-family: 'RomanNewTimes', serif;
+  color: #a6122f;
+  font-size: 1.3rem;
+}
+.price {
+  font-size: 1.5rem;
+  color: #e7b13a;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+.btn-ritual {
+  background: #a6122f;
+  color: #f8f6f2;
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem 1.5rem;
+  font-weight: bold;
+  transition: background 0.2s;
+}
+.btn-ritual:hover {
+  background: #e7b13a;
+  color: #221b29;
+}
+ul.list-unstyled li {
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+}
+.card-preco-link {
+  cursor: pointer;
+  transition: box-shadow 0.2s, transform 0.2s;
+  display: block;
+}
+.card-preco-link:hover {
+  box-shadow: 0 0 24px #a6122f99, 0 4px 24px #3c0a3d99;
+  transform: translateY(-4px) scale(1.03);
+}
+.card-preco-link .card-img-top {
+  max-height: 180px;
+  object-fit: cover;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+@media (max-width: 768px) {
+  #beneficios .card {
+    margin-bottom: 2rem;
+  }
+}

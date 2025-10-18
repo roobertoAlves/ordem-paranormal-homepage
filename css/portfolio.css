@@ -1,0 +1,42 @@
+/* Estilos para seção Portfólio */
+#portfolio {
+  background: linear-gradient(120deg, #0D0D0D 80%, #3C0A3D 100%);
+  color: #EAEAEA;
+}
+#portfolio .card {
+  background: #1a1a1a;
+  border: 2px solid #BF9B30;
+  box-shadow: 0 0 16px #3C0A3D;
+  transition: transform 0.3s;
+}
+#portfolio .card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 32px #8C0E03;
+}
+#portfolio .card-title {
+  color: #BF9B30;
+  font-family: 'RomanNewTimes', serif;
+}
+#portfolio .badge {
+  font-size: 0.9em;
+  margin-right: 4px;
+}
+#portfolio .btn-ritual {
+  background: #BF9B30;
+  color: #8C0E03;
+  border: none;
+  font-weight: bold;
+}
+#portfolio .btn-ritual:hover {
+  background: #8C0E03;
+  color: #EAEAEA;
+}
+.portfolio-card-link {
+  cursor: pointer;
+  transition: box-shadow 0.2s, transform 0.2s;
+  display: block;
+}
+.portfolio-card-link:hover {
+  box-shadow: 0 0 24px #a6122f99, 0 4px 24px #3c0a3d99;
+  transform: translateY(-4px) scale(1.03);
+}
