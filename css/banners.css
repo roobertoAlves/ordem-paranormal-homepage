@@ -1,0 +1,49 @@
+/* Banners ocupando toda a largura, sem borda arredondada */
+.banner-fullwidth,
+.banner-villains {
+  width: 100vw !important;
+  min-width: 100vw !important;
+  max-width: 100vw !important;
+  display: block;
+  object-fit: cover;
+  border-radius: 0 !important;
+}
+
+/* Banner container para centralizar e remover arredondamento */
+.banner-container-fullwidth {
+  position: relative;
+  width: 100vw;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+}
+
+/* Enigma do Medo botões animados */
+.animate-enigma-btn {
+  /* Animações JS/Animate.css/GSAP já aplicam, mas pode-se forçar transições suaves */
+  transition: box-shadow 0.3s, transform 0.3s;
+}
+
+/* Typewriter cursor */
+.type-cursor {
+  display: inline-block;
+  width: 1ch;
+  color: #e94560;
+  animation: blink-cursor 1s steps(1) infinite;
+}
+@keyframes blink-cursor {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Banner Enigma do Medo card na seção cards */
+.card-img-top[alt="Enigma do Medo"] {
+  border-radius: 0 !important;
+  width: 100% !important;
+  max-width: 100vw !important;
+  object-fit: cover;
+}

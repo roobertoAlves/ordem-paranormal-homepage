@@ -22,7 +22,7 @@
       </div>
       <div class="col-md-6 text-center">
         <div class="mb-3">
-          <img src="/assets/img/Icones-e-simbolos/Elementos/Outro Lado.png" alt="Instituto Ordo Realitas" class="img-fluid" style="max-width: 180px; filter: drop-shadow(0 0 20px #BF9B30);">
+          <img src="/ordem-paranormal-homepage/assets/img/Icones-e-simbolos/Elementos/Outro Lado.png" alt="Instituto Ordo Realitas" class="img-fluid contato-img-shadow">
           <p class="mt-2 text-ritual">Instituto Ordo Realitas<br><span class="text-ice">Localização fictícia</span></p>
         </div>
         <div>
@@ -31,5 +31,5 @@
       </div>
     </div>
   </div>
-  <canvas id="contato-canvas" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;"></canvas>
+  <canvas id="contato-canvas" class="canvas-bg-absolute"></canvas>
 </section>

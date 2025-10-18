@@ -1,7 +1,7 @@
 <!-- FAQ -->
 <section id="faq" class="bg-shadow text-ice py-5">
   <div class="container">
-    <h2 class="ordem-title text-blood mb-5 text-center">Perguntas Frequentes</h2>
+  <h2 class="ordem-title text-ritual mb-5 text-center">Perguntas Frequentes</h2>
     <div class="row">
       <div class="col-md-7">
         <div class="accordion" id="faqAccordion">
@@ -38,9 +38,9 @@
         </div>
       </div>
       <div class="col-md-5 text-center">
-        <img src="/assets/img/Icones-e-simbolos/Elementos/Conhecimento.png" alt="FAQ Ordem Paranormal" class="img-fluid" style="max-width: 220px; filter: drop-shadow(0 0 20px #BF9B30);">
+  <img src="/ordem-paranormal-homepage/assets/img/Icones-e-simbolos/Elementos/Conhecimento.png" alt="FAQ Ordem Paranormal" class="img-fluid faq-img-shadow">
       </div>
     </div>
   </div>
-  <canvas id="faq-canvas" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;"></canvas>
+  <canvas id="faq-canvas" class="canvas-bg-absolute"></canvas>
 </section>

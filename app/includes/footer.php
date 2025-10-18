@@ -5,7 +5,7 @@
     <small class="text-ritual">Site de fã sem vínculo oficial. Todos os direitos reservados aos criadores originais.</small>
     <br>
     <span class="text-ice">Desenvolvido por fãs para fãs &copy; 2025</span>
-    <div id="footer-flicker" style="display:inline-block; margin-left:10px; color:#BF9B30; font-size:1.2em;">&#x1F56F;</div>
+  <div id="footer-flicker" class="footer-flicker">&#x1F56F;</div>
   </div>
 </footer>
 <script>
@@ -21,4 +21,4 @@ anime({
 </script>
 <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js'></script>
-<script src='/js/main.js'></script>
+<script src='/ordem-paranormal-homepage/js/main.js'></script>
