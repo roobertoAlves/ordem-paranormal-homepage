@@ -1,43 +1,69 @@
-<!-- Ramificações, Campanhas e Campanhas de RPG (unificadas) -->
-<section id="ramificacoes-campanhas" class="bg-shadow text-ice py-5">
-  <div class="container">
-    <h2 class="ordem-title text-blood mb-4 text-center">Ramificações & Campanhas</h2>
+<?php
+$db_path = $_SERVER['DOCUMENT_ROOT'] . '/ordem-paranormal-homepage/app/factory/db.php';
+if (file_exists($db_path)) {
+    require_once $db_path;
+    $section_id = 6; // Planos
+    $stmt = $pdo->prepare('SELECT * FROM section_content WHERE section_id = ?');
+    $stmt->execute([$section_id]);
+    $content = $stmt->fetch();
+    $stmt2 = $pdo->prepare('SELECT * FROM section_images WHERE section_id = ?');
+    $stmt2->execute([$section_id]);
+    $images = $stmt2->fetchAll();
+} else {
+    $content = null;
+    $images = [];
+}
+?>
+<section id="ramificacoes-campanhas" class="bg-shadow text-ice py-5" style="<?=
+  (!empty($content['color']) ? 'background:' . htmlspecialchars($content['color']) . ' !important;' : '') .
+  (!empty($content['font_color']) ? 'color:' . htmlspecialchars($content['font_color']) . ' !important;' : '')
+?>">
+  <div class="container-fluid px-0">
+    <h2 class="ordem-title text-blood mb-4 text-center" style="font-size:clamp(2rem,6vw,3.5rem);word-break:break-word;">
+      <?= !empty($content['title']) ? htmlspecialchars($content['title']) : 'Ramificações & Campanhas' ?>
+    </h2>
     <div class="container-cards-campanhas mb-5">
       <div class="row g-4 justify-content-center">
-        <div class="col-md-4">
-          <a href="https://ordemparanormal.com.br/" target="_blank" class="no-underline">
-            <div class="card h-100 text-center card-pointer card-hover-efeito">
-              <img src="/ordem-paranormal-homepage/assets/img/Banners-e-bg/op-bg.jpg" class="card-img-top" alt="RPG de Mesa">
-              <div class="card-body">
-                <h5 class="card-title text-ritual">RPG de Mesa</h5>
-                <p class="card-text">Campanhas transmitidas ao vivo, expandindo o universo com mistério e investigação.</p>
-              </div>
-            </div>
-          </a>
-        </div>
-      <div class="col-md-4">
-        <a href="https://jamboeditora.com.br/produto/ordem-paranormal-iniciacao/" target="_blank" class="no-underline">
-          <div class="card h-100 text-center card-pointer card-hover-efeito">
-            <img src="/ordem-paranormal-homepage/assets/img/Banners-e-bg/hq-bg.png" class="card-img-top" alt="HQ Ordem Paranormal Iniciação">
-            <div class="card-body">
-              <h5 class="card-title text-ritual">HQ Ordem Paranormal: Iniciação</h5>
-              <p class="card-text">História oficial em quadrinhos do universo Ordem Paranormal. Disponível pela Jambô Editora.</p>
-            </div>
-          </div>
-        </a>
+        <?php
+        $cards = [];
+        $stmtCards = $pdo->prepare('SELECT * FROM section_cards WHERE section_id = ? ORDER BY display_order, created_at');
+        $stmtCards->execute([$section_id]);
+        $cards = $stmtCards->fetchAll();
+        if ($cards) {
+          foreach ($cards as $card) {
+            echo '<div class="col-md-4">';
+            echo '<div class="card h-100 text-center card-pointer card-hover-efeito animate__animated animate__fadeInUp" style="'.(!empty($card['card_color']) ? 'background:'.htmlspecialchars($card['card_color']).' !important;' : '').'">';
+            if (!empty($card['image_path'])) {
+              echo '<img src="'.htmlspecialchars($card['image_path']).'" class="card-img-top" alt="Imagem Card">';
+            }
+            echo '<div class="card-body">';
+            if (!empty($card['title'])) {
+              echo '<h5 class="card-title text-ritual">'.htmlspecialchars($card['title']).'</h5>';
+            }
+            if (!empty($card['subtitle'])) {
+              echo '<h6 class="card-subtitle mb-2 text-ice">'.htmlspecialchars($card['subtitle']).'</h6>';
+            }
+            if (!empty($card['content'])) {
+              echo '<p class="card-text">'.nl2br($card['content']).'</p>';
+            }
+            if (!empty($card['price'])) {
+              echo '<span class="badge bg-gold text-dark mb-2">'.htmlspecialchars($card['price']).'</span>';
+            }
+            if (!empty($card['link'])) {
+              echo '<a href="'.htmlspecialchars($card['link']).'" class="btn btn-ritual mt-2">Saiba mais</a>';
+            }
+            echo '</div></div></div>';
+          }
+        } else {
+          echo '<div class="col-md-4"><a href="https://ordemparanormal.com.br/" target="_blank" class="no-underline"><div class="card h-100 text-center card-pointer card-hover-efeito"><img src="/ordem-paranormal-homepage/assets/img/Banners-e-bg/op-bg.jpg" class="card-img-top" alt="RPG de Mesa"><div class="card-body"><h5 class="card-title text-ritual">RPG de Mesa</h5><p class="card-text">Campanhas transmitidas ao vivo, expandindo o universo com mistério e investigação.</p></div></div></a></div>';
+          echo '<div class="col-md-4"><a href="https://jamboeditora.com.br/produto/ordem-paranormal-iniciacao/" target="_blank" class="no-underline"><div class="card h-100 text-center card-pointer card-hover-efeito"><img src="/ordem-paranormal-homepage/assets/img/Banners-e-bg/hq-bg.png" class="card-img-top" alt="HQ Ordem Paranormal Iniciação"><div class="card-body"><h5 class="card-title text-ritual">HQ Ordem Paranormal: Iniciação</h5><p class="card-text">História oficial em quadrinhos do universo Ordem Paranormal. Disponível pela Jambô Editora.</p></div></div></a></div>';
+          echo '<div class="col-md-4"><a href="#enigma" class="no-underline"><div class="card h-100 text-center card-pointer card-hover-efeito"><img src="/ordem-paranormal-homepage/assets/img/Banners-e-bg/em-bg.jpg" class="card-img-top" alt="Enigma do Medo"><div class="card-body"><h5 class="card-title text-ritual">Enigma do Medo</h5><p class="card-text">Jogo oficial de Ordem Paranormal, com exploração, sobrevivência e narrativa profunda. Clique para saber mais!</p></div></div></a></div>';
+        }
+      ?>
       </div>
-      <div class="col-md-4">
-        <a href="#enigma" class="no-underline">
-          <div class="card h-100 text-center card-pointer card-hover-efeito">
-            <img src="/ordem-paranormal-homepage/assets/img/Banners-e-bg/em-bg.jpg" class="card-img-top" alt="Enigma do Medo">
-            <div class="card-body">
-              <h5 class="card-title text-ritual">Enigma do Medo</h5>
-              <p class="card-text">Jogo oficial de Ordem Paranormal, com exploração, sobrevivência e narrativa profunda. Clique para saber mais!</p>
-            </div>
-          </div>
-        </a>
-      </div>
+    </div>
   </div>
+</section>
   </div>
     <!-- Campanhas de RPG (cards clicáveis, sem texto 'Assistir') -->
   <div class="container-cards-campanhas mb-5">

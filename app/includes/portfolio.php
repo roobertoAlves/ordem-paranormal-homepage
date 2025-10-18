@@ -1,78 +1,84 @@
-<!-- Campanhas RPG -->
-<section id="portfolio" class="bg-shadow text-ice py-5">
-  <div class="container">
-    <h2 class="ordem-title text-ritual mb-5 text-center">Campanhas de RPG</h2>
-    <div class="row g-4">
-      <div class="col-md-4">
-        <div class="card bg-dark h-100 border-ritual">
-            <img src="/ordem-paranormal-homepage/assets/img/Banners-e-bg/segredo-na-floresta-bg.jpg" class="card-img-top" alt="O Segredo na Floresta">
-          <div class="card-body">
-            <h5 class="card-title text-blood">O Segredo na Floresta</h5>
-            <p class="text-ice">Abril 2020 - Julho 2020</p>
-            <span class="text-ritual portfolio-assistir">Assistir</span>
+<?php
+$db_path = $_SERVER['DOCUMENT_ROOT'] . '/ordem-paranormal-homepage/app/factory/db.php';
+if (file_exists($db_path)) {
+    require_once $db_path;
+    $section_id = 5; // Portfolio
+    $stmt = $pdo->prepare('SELECT * FROM section_content WHERE section_id = ?');
+    $stmt->execute([$section_id]);
+    $content = $stmt->fetch();
+    $stmt2 = $pdo->prepare('SELECT * FROM section_images WHERE section_id = ?');
+    $stmt2->execute([$section_id]);
+    $images = $stmt2->fetchAll();
+} else {
+    $content = null;
+    $images = [];
+}
+?>
+<section id="portfolio" class="bg-shadow text-ice py-5" style="<?= !empty($content['color']) ? 'background:' . htmlspecialchars($content['color']) . ' !important;' : '' ?>">
+  <div class="container-fluid px-0">
+    <h2 class="ordem-title text-ritual mb-5 text-center" id="portfolio-title">
+  <?= !empty($content['title']) ? $content['title'] : 'Campanhas de RPG' ?>
+    </h2>
+    <div class="row g-4" id="portfolio-content">
+      <?php
+      $cards = [];
+      $stmtCards = $pdo->prepare('SELECT * FROM section_cards WHERE section_id = ? ORDER BY display_order, created_at');
+      $stmtCards->execute([$section_id]);
+      $cards = $stmtCards->fetchAll();
+      if ($cards) {
+        foreach ($cards as $card) {
+          echo '<div class="col-md-4">';
+          echo '<div class="card bg-dark h-100 border-ritual card-hover-efeito animate__animated animate__fadeInUp" style="'.(!empty($card['card_color']) ? 'background:'.htmlspecialchars($card['card_color']).' !important;' : '').'">';
+          if (!empty($card['image_path'])) {
+            echo '<img src="'.htmlspecialchars($card['image_path']).'" class="card-img-top" alt="Banner Campanha">';
+          }
+          echo '<div class="card-body">';
+          if (!empty($card['title'])) {
+            echo '<h5 class="card-title text-blood">'.htmlspecialchars($card['title']).'</h5>';
+          }
+          if (!empty($card['subtitle'])) {
+            echo '<h6 class="card-subtitle mb-2 text-ice">'.htmlspecialchars($card['subtitle']).'</h6>';
+          }
+          if (!empty($card['content'])) {
+            echo '<p class="text-ice">'.nl2br($card['content']).'</p>';
+          }
+          if (!empty($card['price'])) {
+            echo '<span class="badge bg-gold text-dark mb-2">'.htmlspecialchars($card['price']).'</span>';
+          }
+          if (!empty($card['link'])) {
+            echo '<a href="'.htmlspecialchars($card['link']).'" class="btn btn-ritual mt-2">Assistir</a>';
+          }
+          echo '</div></div></div>';
+        }
+      } elseif (!empty($images)) {
+        foreach ($images as $img) {
+          if (!empty($img['image_path'])) {
+            echo '<div class="col-md-4">';
+            echo '<div class="card bg-dark h-100 border-ritual card-hover-efeito animate__animated animate__fadeInUp">';
+            echo '<img src="'.str_replace('/app/assets/uploads/', '/public/uploads/', htmlspecialchars($img['image_path'])).'" class="card-img-top" alt="Banner Campanha">';
+            echo '<div class="card-body">';
+            if (!empty($content['subtitle'])) {
+              echo '<h5 class="card-title text-blood">'.htmlspecialchars($content['subtitle']).'</h5>';
+            }
+            if (!empty($content['content'])) {
+              echo '<p class="text-ice">'.nl2br($content['content']).'</p>';
+            }
+            echo '<span class="text-ritual" style="font-family: \"RomanNewTimes\", \"Times New Roman\", serif; font-weight: bold;">Assistir</span>';
+            echo '</div></div></div>';
+          }
+        }
+      } else {
+        ?>
+        <div class="col-12">
+          <div class="card bg-dark h-100 border-ritual">
+            <div class="card-body">
+              <h5 class="card-title text-blood">Nenhuma campanha cadastrada</h5>
+              <p class="text-ice">Adicione banners das campanhas pelo admin.</p>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="col-md-4">
-        <div class="card bg-dark h-100 border-ritual">
-            <img src="/ordem-paranormal-homepage/assets/img/Banners-e-bg/desconjuracao-bg.jpg" class="card-img-top" alt="Desconjuração">
-          <div class="card-body">
-            <h5 class="card-title text-blood">Desconjuração</h5>
-            <p class="text-ice">Out 2020 - Mai 2021</p>
-            <span class="text-ritual" style="font-family: 'RomanNewTimes', 'Times New Roman', serif; font-weight: bold;">Assistir</span>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="card bg-dark h-100 border-ritual">
-            <img src="/ordem-paranormal-homepage/assets/img/Banners-e-bg/calamidade-bg.jpg" class="card-img-top" alt="Calamidade">
-          <div class="card-body">
-            <h5 class="card-title text-blood">Calamidade</h5>
-            <p class="text-ice">Set 2021 - Nov 2021</p>
-            <span class="text-ritual" style="font-family: 'RomanNewTimes', 'Times New Roman', serif; font-weight: bold;">Assistir</span>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="card bg-dark h-100 border-ritual">
-            <img src="/ordem-paranormal-homepage/assets/img/Banners-e-bg/osni-bg.jpeg" class="card-img-top" alt="O Segredo na Ilha">
-          <div class="card-body">
-            <h5 class="card-title text-blood">O Segredo na Ilha</h5>
-            <p class="text-ice">Jun 2022 - Ago 2022</p>
-            <span class="text-ritual" style="font-family: 'RomanNewTimes', 'Times New Roman', serif; font-weight: bold;">Assistir</span>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="card bg-dark h-100 border-ritual">
-            <img src="/ordem-paranormal-homepage/assets/img/Banners-e-bg/sdol-bg.jpg" class="card-img-top" alt="Sinais do Outro Lado">
-          <div class="card-body">
-            <h5 class="card-title text-blood">Sinais do Outro Lado</h5>
-            <p class="text-ice">Out 2022 - Dez 2022</p>
-            <span class="text-ritual" style="font-family: 'RomanNewTimes', 'Times New Roman', serif; font-weight: bold;">Assistir</span>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="card bg-dark h-100 border-ritual">
-            <img src="/ordem-paranormal-homepage/assets/img/Banners-e-bg/quarentena-bg.jpg" class="card-img-top" alt="Quarentena">
-          <div class="card-body">
-            <h5 class="card-title text-blood">Quarentena</h5>
-            <p class="text-ice">Set 2023</p>
-            <span class="text-ritual" style="font-family: 'RomanNewTimes', 'Times New Roman', serif; font-weight: bold;">Assistir</span>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="card bg-dark h-100 border-ritual">
-            <img src="/ordem-paranormal-homepage/assets/img/Banners-e-bg/nm-bg.jpg" class="card-img-top" alt="Natal Macabro">
-          <div class="card-body">
-            <h5 class="card-title text-blood">Natal Macabro</h5>
-            <p class="text-ice">Dez 2024</p>
-            <span class="text-ritual" style="font-family: 'RomanNewTimes', 'Times New Roman', serif; font-weight: bold;">Assistir</span>
-          </div>
-        </div>
-      </div>
-    </div>
+        <?php
+      }
+    ?>
   </div>
 </section>

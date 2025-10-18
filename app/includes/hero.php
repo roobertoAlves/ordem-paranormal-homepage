@@ -1,33 +1,28 @@
-<!-- Hero Banner (apenas uma vez, imagem inteira dos agentes) -->
+<?php
+$db_path = $_SERVER['DOCUMENT_ROOT'] . '/ordem-paranormal-homepage/app/factory/db.php';
+if (file_exists($db_path)) {
+  require_once $db_path;
+  $section_id = 1; // Hero
+  $stmt = $pdo->prepare('SELECT * FROM section_content WHERE section_id = ?');
+  $stmt->execute([$section_id]);
+  $content = $stmt->fetch();
+  $stmt2 = $pdo->prepare('SELECT * FROM section_images WHERE section_id = ?');
+  $stmt2->execute([$section_id]);
+  $images = $stmt2->fetchAll();
+} else {
+  $content = null;
+  $images = [];
+}
+?>
 <section class="hero-banner" id="hero-banner">
-    <img src="/ordem-paranormal-homepage/assets/img/Banners-e-bg/agentes-bg.jpeg" class="banner-img" alt="Banner Agentes">
-  <h1 class="ordem-title text-ritual">Ordem Paranormal O RPG</h1>
-  <p class="lead text-ritual">O universo do medo, mistério e investigação</p>
-  <a href="#enigma" class="text-ritual no-underline hero-link">Enigma do Medo</a>
-</section>
-
-<!-- Hero Section -->
-<section class="hero-section d-flex flex-column justify-content-center align-items-center text-center bg-blood py-5 hero-section-main">
-    <div>
-        <h2 class="display-3 text-ice ordem-title mb-3" id="hero-headline">Entre no Mistério</h2>
-        <p class="lead text-shadow mb-4" id="hero-subtitle">O RPG brasileiro que desafia a sanidade e revela o sobrenatural.</p>
-  <a href="#sobre" class="text-ritual no-underline hero-link">Conheça o Jogo</a>
-    </div>
-    <div class="mt-4">
-                <img src="/ordem-paranormal-homepage/assets/img/Banners-e-bg/time-abutre-bg.jpg" alt="Banner Equipe Abutre" id="abutre-img" class="img-fluid hero-banner-img">
-                <script>
-                document.addEventListener('DOMContentLoaded', function() {
-                  var abutre = document.getElementById('abutre-img');
-                  if (abutre) {
-                    abutre.animate([
-                      { transform: 'scale(1) rotate(0deg)' },
-                      { transform: 'scale(1.05) rotate(-2deg)' },
-                      { transform: 'scale(1) rotate(0deg)' }
-                    ], {
-                      duration: 2200,
-                      iterations: Infinity
-                    });
-                  }
-                });
-                </script>
+  <?php if (!empty($images)): ?>
+    <?php foreach ($images as $img): ?>
+  <img src="<?= str_replace('/app/assets/uploads/', '/public/uploads/', htmlspecialchars($img['image_path'])) ?>" class="banner-img hero-img-dyn" alt="Banner Hero">
+    <?php endforeach; ?>
+  <?php else: ?>
+    <img src="/ordem-paranormal-homepage/assets/img/Banners-e-bg/agentes-bg.jpeg" class="banner-img hero-img-dyn" alt="Banner Agentes">
+  <?php endif; ?>
+  <a href="<?= !empty($content['link']) ? htmlspecialchars($content['link']) : '#enigma' ?>" class="text-ritual no-underline hero-link hero-link-dyn">
+    <?= !empty($content['content']) ? $content['content'] : 'Enigma do Medo' ?>
+  </a>
 </section>
